@@ -33,13 +33,6 @@ app.get("/posts", authenticate, (req, res) => {
   res.json(posts.filter((post) => post.userName === req.user.name));
 });
 
-app.post("/login", (req, res) => {
-  const username = req.body.username;
-  const user = { name: username };
-  const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN);
-  res.json({ accessToken: accessToken });
-});
-
 function authenticate(req, res, next) {
   const token = req.headers.authorization.split(" ")[1];
   if (token === null) return res.sendStatus(404);
